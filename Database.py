@@ -57,7 +57,7 @@ class Geological_Place:
         Continent_Data = ["Unknown", "Africa", "Asia", "Europe", "North America", "South America", "Antarctica", "Australia"]
         print()
         print("--- Gathered Information so far ---")
-        print(f"Temperature: {Temperature_Data[Data[0]+1]}\nContinent: {Continent_Data[Data[1]]}")
+        print(f"Temperature: {Temperature_Data[Data[0]-1]}\nContinent: {Continent_Data[Data[1]]}")
         print("-----------------------------------")
 
 
