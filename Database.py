@@ -1,10 +1,10 @@
 import datetime
-from datetime import timedelta
 import dateutil
 
 
 class Geological_Place:
     def __init__(self):
+        self.desync = None
         self.date = datetime.datetime.now()
         self.Temperature = 0
         self.Continent = 0
@@ -59,7 +59,7 @@ class Geological_Place:
     def sync_clock(self):
         self.date = datetime.datetime.now()
         while True:
-            correctness = input(f"This is the last obtained date and time information: {datetime}\nIs this correct? (Yes/No)\n ")
+            correctness = input(f"This is the last obtained date and time information: {self.date}\nIs this correct? (Yes/No)\n ")
             if correctness == "Yes":
                 self.desync_mode = False
                 break
@@ -73,26 +73,40 @@ class Geological_Place:
                         desync = input()
                         time = list(map(int, desync.split(',')))
                         self.desync_mode = True
-                        dateutil.relativedelta(years=time[0], days=time[1], hours=time[2], minutes=time[3], seconds=time[4], milliseconds=time[5])
+                        self.desync = dateutil.relativedelta.relativedelta(years=time[0], days=time[1], hours=time[2], minutes=time[3], seconds=time[4], microseconds=time[5])
                         while True:
                             forb = input("Is the system clock too early or late? (Early/Late)\n")
-                            if forb == "early":
+                            if forb == "Early":
                                 self.desync_way = 1
                                 break
-                            elif forb == "late":
+                            elif forb == "Late":
                                 self.desync_way = 0
                                 break
                             else:
                                 print("Sorry, please check your answer again.")
+                        break
                     elif time_knowledge == "No":
                         print("Sorry, guess you need to work with the system's internal clock for now.")
+                        break
                     else:
                         print("Sorry, please choose from one of the above.")
+                break
 
 
             else:
                 print("Sorry, that answer doesn't seem valid. Please type Yes or No.")
                 continue
+
+
+    def check_clock(self):
+        self.date = datetime.datetime.now()
+        if not self.desync_mode:
+            return self.date
+        else:
+            if self.desync_way:
+                return self.date + self.desync
+            else:
+                return self.date - self.desync
 
 
 
@@ -106,7 +120,9 @@ class Geological_Place:
         Continent_Data = ["Unknown", "Africa", "Asia", "Europe", "North America", "South America", "Antarctica", "Australia"]
         print()
         print("--- Gathered Information so far ---")
-        print(f"Temperature: {Temperature_Data[Data[0]-1]}\nContinent: {Continent_Data[Data[1]]}")
+        print(f"Temperature: {Temperature_Data[Data[0]-1]}")
+        print(f"Continent: {Continent_Data[Data[1]]}")
+        print(f"Current Time: {self.check_clock()}")
         print("-----------------------------------")
 
 
