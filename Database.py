@@ -1,7 +1,15 @@
+import datetime
+from datetime import timedelta
+import dateutil
+
+
 class Geological_Place:
     def __init__(self):
+        self.date = datetime.datetime.now()
         self.Temperature = 0
         self.Continent = 0
+        self.desync_mode = False
+        self.desync_way = None
 
 
     def ask_temp(self):
@@ -46,6 +54,47 @@ class Geological_Place:
                 break
             print("Sorry, please choose from Africa, Asia, Europe, North America, South America, Antarctica, Australia. Capitalize the first letter and try again!")
             continue
+
+
+    def sync_clock(self):
+        self.date = datetime.datetime.now()
+        while True:
+            correctness = input(f"This is the last obtained date and time information: {datetime}\nIs this correct? (Yes/No)\n ")
+            if correctness == "Yes":
+                self.desync_mode = False
+                break
+            elif correctness == "No":
+                time_knowledge = input("Do you know the current time? (Yes/No)\n")
+                while True:
+                    if time_knowledge == "Yes":
+                        print("Please say how many years/days/hours/minutes/seconds/milliseconds is the current clock off?")
+                        print("Also, please say it in the format years, days, hours, minutes, seconds, milliseconds (with \',\' in between")
+                        print("E.g. 4,1,2,3,4,5")
+                        desync = input()
+                        time = list(map(int, desync.split(',')))
+                        self.desync_mode = True
+                        dateutil.relativedelta(years=time[0], days=time[1], hours=time[2], minutes=time[3], seconds=time[4], milliseconds=time[5])
+                        while True:
+                            forb = input("Is the system clock too early or late? (Early/Late)\n")
+                            if forb == "early":
+                                self.desync_way = 1
+                                break
+                            elif forb == "late":
+                                self.desync_way = 0
+                                break
+                            else:
+                                print("Sorry, please check your answer again.")
+                    elif time_knowledge == "No":
+                        print("Sorry, guess you need to work with the system's internal clock for now.")
+                    else:
+                        print("Sorry, please choose from one of the above.")
+
+
+            else:
+                print("Sorry, that answer doesn't seem valid. Please type Yes or No.")
+                continue
+
+
 
     def knowledge_check(self):
         return [self.Temperature, self.Continent]
