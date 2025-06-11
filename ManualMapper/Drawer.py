@@ -33,7 +33,7 @@ def set_background_image(image_path):
         # Remove previous backgrounds
         canvas.delete("bg")
 
-        # Draw at top-left of canvas
+        # Draw at top-left of canvas, avoids using anchor to avoid weird points
         canvas.create_image(0, 0, image=photo, tags="bg")
 
     draw_image()
