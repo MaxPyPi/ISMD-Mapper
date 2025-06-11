@@ -1,6 +1,6 @@
-from Database import Geological_Place
+from Database import Climate
 
-Place = Geological_Place()
+Place = Climate()
 
 Place.ask_temp()
 Place.ask_cont()

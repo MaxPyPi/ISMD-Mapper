@@ -1,8 +1,8 @@
 import datetime
-import dateutil
+from dateutil.relativedelta import relativedelta
 
 
-class Geological_Place:
+class Climate:
     def __init__(self):
         self.desync = None
         self.date = datetime.datetime.now()
@@ -73,7 +73,7 @@ class Geological_Place:
                         desync = input()
                         time = list(map(int, desync.split(',')))
                         self.desync_mode = True
-                        self.desync = dateutil.relativedelta.relativedelta(years=time[0], days=time[1], hours=time[2], minutes=time[3], seconds=time[4], microseconds=time[5])
+                        self.desync = relativedelta(years=time[0], days=time[1], hours=time[2], minutes=time[3], seconds=time[4], microseconds=time[5])
                         while True:
                             forb = input("Is the system clock too early or late? (Early/Late)\n")
                             if forb == "Early":
@@ -109,9 +109,8 @@ class Geological_Place:
                 return self.date - self.desync
 
 
-
     def knowledge_check(self):
-        return [self.Temperature, self.Continent]
+        return [self.Temperature, self.Continent, self.check_clock()]
 
 
     def print_knowledge_check(self):
@@ -122,7 +121,7 @@ class Geological_Place:
         print("--- Gathered Information so far ---")
         print(f"Temperature: {Temperature_Data[Data[0]-1]}")
         print(f"Continent: {Continent_Data[Data[1]]}")
-        print(f"Current Time: {self.check_clock()}")
+        print(f"Current Time: {Data[2]}")
         print("-----------------------------------")
 
 
