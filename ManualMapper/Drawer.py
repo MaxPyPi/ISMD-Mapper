@@ -19,7 +19,7 @@ def set_background_image(image_path):
 
         if width <= 1 or height <= 1:
             # Still not ready, try again shortly
-            canvas.after(100, draw_image)
+            canvas.after(20, draw_image)
             return
 
         # Load and resize the image
@@ -43,7 +43,8 @@ screen.title("Follow Mouse Cursor While Right-Click Held")
 screen.bgcolor("white")
 screen.tracer(0)
 screen.setup(width=WIDTH, height=HEIGHT)
-set_background_image(IMAGEPATH)
+if IMAGEPATH != "":
+    set_background_image(IMAGEPATH)
 
 arrow = turtle.Turtle()
 arrow.shape("triangle")
