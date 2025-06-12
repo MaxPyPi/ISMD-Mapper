@@ -125,5 +125,9 @@ class Climate:
         print("-----------------------------------")
 
 
+
+
+
+
 if __name__ == "__main__":
     print("This program isn't meant to be run as the main program! Please use main.py!")

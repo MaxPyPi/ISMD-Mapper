@@ -1,4 +1,4 @@
-from Database import Climate
+from Classes import Climate
 
 Place = Climate()
 
